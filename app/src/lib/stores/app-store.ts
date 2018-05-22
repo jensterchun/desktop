@@ -434,6 +434,8 @@ export class AppStore extends TypedBaseStore<IAppState> {
       },
       compareState: {
         formState: { kind: ComparisonView.None },
+        showBranchList: false,
+        filterText: '',
         commitSHAs: [],
         aheadBehindCache: new ComparisonCache(),
         allBranches: new Array<Branch>(),
