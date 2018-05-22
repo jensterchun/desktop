@@ -631,7 +631,7 @@ export interface ICompareState {
   /** Whether the branch list should be expanded or hidden */
   readonly showBranchList: boolean
 
-  /** The text entered  */
+  /** The text entered into the compare branch filter text box */
   readonly filterText: string
 
   /** The SHAs of commits to render in the compare list */
