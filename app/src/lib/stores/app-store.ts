@@ -862,6 +862,30 @@ export class AppStore extends TypedBaseStore<IAppState> {
   }
 
   /** This shouldn't be called directly. See `Dispatcher`. */
+  public _updateCompareForm(
+    repository: Repository,
+    newState: { filterText?: string; showBranchList?: boolean }
+  ) {
+    this.updateCompareState(repository, state => {
+      const filterText =
+        newState.filterText !== undefined
+          ? newState.filterText
+          : state.filterText
+      const showBranchList =
+        newState.showBranchList !== undefined
+          ? newState.showBranchList
+          : state.showBranchList
+
+      return {
+        filterText,
+        showBranchList,
+      }
+    })
+
+    this.emitUpdate()
+  }
+
+  /** This shouldn't be called directly. See `Dispatcher`. */
   public _loadNextHistoryBatch(repository: Repository): Promise<void> {
     const gitStore = this.getGitStore(repository)
     return gitStore.loadNextHistoryBatch()
