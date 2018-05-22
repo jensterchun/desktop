@@ -28,7 +28,7 @@ import { InMemoryStore, AsyncInMemoryStore } from '../helpers/stores'
 import { StatsStore } from '../../src/lib/stats'
 
 import {
-  RepositorySectionTab,
+  RepositorySection,
   SelectionType,
   IRepositoryState,
 } from '../../src/lib/app-state'
@@ -131,9 +131,10 @@ describe('AppStore', () => {
 
       // select the repository and show the changes view
       await appStore._selectRepository(repository)
-      await appStore._changeRepositorySection(repository, {
-        selectedTab: RepositorySectionTab.Changes,
-      })
+      await appStore._changeRepositorySection(
+        repository,
+        RepositorySection.Changes
+      )
 
       let state = getAppState(appStore)
       expect(state.localCommitSHAs.length).to.equal(1)

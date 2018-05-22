@@ -4,12 +4,12 @@ import { CSSTransitionGroup } from 'react-transition-group'
 
 import {
   IAppState,
-  RepositorySectionTab,
   Popup,
   PopupType,
   FoldoutType,
   SelectionType,
   CompareActionKind,
+  RepositorySection,
 } from '../lib/app-state'
 import { Dispatcher } from '../lib/dispatcher'
 import { AppStore } from '../lib/stores'
@@ -490,7 +490,7 @@ export class App extends React.Component<IAppProps, IAppState> {
     this.props.dispatcher.showPopup({ type: PopupType.About })
   }
 
-  private async showHistory(shouldShowBranchesList: boolean = false) {
+  private async showHistory(showBranchList: boolean = false) {
     const state = this.state.selectedState
     if (state == null || state.type !== SelectionType.Repository) {
       return
@@ -515,9 +515,10 @@ export class App extends React.Component<IAppProps, IAppState> {
     }
 
     this.props.dispatcher.closeCurrentFoldout()
-    this.props.dispatcher.changeRepositorySection(state.repository, {
-      selectedTab: RepositorySectionTab.Changes,
-    })
+    this.props.dispatcher.changeRepositorySection(
+      state.repository,
+      RepositorySection.Changes
+    )
   }
 
   private chooseRepository() {

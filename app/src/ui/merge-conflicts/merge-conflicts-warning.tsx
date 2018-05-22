@@ -3,7 +3,7 @@ import { Button } from '../lib/button'
 import { ButtonGroup } from '../lib/button-group'
 import { Dialog, DialogContent, DialogFooter } from '../dialog'
 import { Dispatcher } from '../../lib/dispatcher'
-import { RepositorySectionTab } from '../../lib/app-state'
+import { RepositorySection } from '../../lib/app-state'
 import { Repository } from '../../models/repository'
 
 interface IMergeConflictsWarningProps {
@@ -17,9 +17,10 @@ export class MergeConflictsWarning extends React.Component<
   {}
 > {
   private onSubmit = () => {
-    this.props.dispatcher.changeRepositorySection(this.props.repository, {
-      selectedTab: RepositorySectionTab.Changes,
-    })
+    this.props.dispatcher.changeRepositorySection(
+      this.props.repository,
+      RepositorySection.Changes
+    )
     this.props.onDismissed()
   }
 

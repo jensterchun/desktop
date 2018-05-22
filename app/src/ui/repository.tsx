@@ -11,9 +11,8 @@ import { Resizable } from './resizable'
 import { TabBar } from './tab-bar'
 import {
   IRepositoryState,
-  RepositorySectionTab,
-  ImageDiffType,
   RepositorySection,
+  ImageDiffType,
 } from '../lib/app-state'
 import { Dispatcher } from '../lib/dispatcher'
 import { IssuesStore, GitHubUserStore } from '../lib/stores'
@@ -77,8 +76,7 @@ export class RepositoryView extends React.Component<
     const hasChanges =
       this.props.state.changesState.workingDirectory.files.length > 0
     const selectedTab =
-      this.props.state.selectedSection.selectedTab ===
-      RepositorySectionTab.Changes
+      this.props.state.selectedSection === RepositorySection.Changes
         ? Tab.Changes
         : Tab.History
 
@@ -184,9 +182,9 @@ export class RepositoryView extends React.Component<
   private renderSidebarContents(): JSX.Element {
     const selectedSection = this.props.state.selectedSection
 
-    if (selectedSection.selectedTab === RepositorySectionTab.Changes) {
+    if (selectedSection === RepositorySection.Changes) {
       return this.renderChangesSidebar()
-    } else if (selectedSection.selectedTab === RepositorySectionTab.History) {
+    } else if (selectedSection === RepositorySection.History) {
       return enableCompareSidebar()
         ? this.renderCompareSidebar()
         : this.renderHistorySidebar()
@@ -228,7 +226,7 @@ export class RepositoryView extends React.Component<
   private renderContent(): JSX.Element | null {
     const selectedSection = this.props.state.selectedSection
 
-    if (selectedSection.selectedTab === RepositorySectionTab.Changes) {
+    if (selectedSection === RepositorySection.Changes) {
       const changesState = this.props.state.changesState
       const selectedFileIDs = changesState.selectedFileIDs
 
@@ -260,7 +258,7 @@ export class RepositoryView extends React.Component<
           />
         )
       }
-    } else if (selectedSection.selectedTab === RepositorySectionTab.History) {
+    } else if (selectedSection === RepositorySection.History) {
       return (
         <History
           repository={this.props.repository}
@@ -298,14 +296,10 @@ export class RepositoryView extends React.Component<
     // about the shift key here, we can get away with that as long
     // as there's only two tabs.
     if (e.ctrlKey && e.key === 'Tab') {
-      const section: RepositorySection =
-        this.props.state.selectedSection.selectedTab ===
-        RepositorySectionTab.History
-          ? { selectedTab: RepositorySectionTab.Changes }
-          : {
-              selectedTab: RepositorySectionTab.History,
-              shouldShowBranchesList: false,
-            }
+      const section =
+        this.props.state.selectedSection === RepositorySection.History
+          ? RepositorySection.Changes
+          : RepositorySection.History
 
       this.props.dispatcher.changeRepositorySection(
         this.props.repository,
@@ -318,11 +312,8 @@ export class RepositoryView extends React.Component<
   private onTabClicked = (tab: Tab) => {
     const section: RepositorySection =
       tab === Tab.History
-        ? {
-            selectedTab: RepositorySectionTab.History,
-            shouldShowBranchesList: false,
-          }
-        : { selectedTab: RepositorySectionTab.Changes }
+        ? RepositorySection.History
+        : RepositorySection.Changes
 
     this.props.dispatcher.changeRepositorySection(
       this.props.repository,
