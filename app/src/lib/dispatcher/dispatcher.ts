@@ -1184,6 +1184,14 @@ export class Dispatcher {
     return this.appStore._executeCompare(repository, action)
   }
 
+  /** Update the compare form state for the current repository */
+  public updateCompareForm(
+    repository: Repository,
+    formState: { filterText?: string; showBranchList?: boolean }
+  ) {
+    return this.appStore._updateCompareForm(repository, formState)
+  }
+
   /**
    * Increments the `mergeIntoCurrentBranchMenuCount` metric
    */

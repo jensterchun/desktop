@@ -318,17 +318,10 @@ export type Foldout =
   | { type: FoldoutType.AddMenu }
   | AppMenuFoldout
 
-export enum RepositorySectionTab {
-  Changes,
-  History,
+export enum RepositorySection {
+  Changes = 'Changes',
+  History = 'History',
 }
-
-export type RepositorySection =
-  | { selectedTab: RepositorySectionTab.Changes }
-  | {
-      selectedTab: RepositorySectionTab.History
-      shouldShowBranchesList?: boolean
-    }
 
 export interface IRepositoryState {
   readonly historyState: IHistoryState
@@ -634,6 +627,12 @@ export interface ICompareBranch {
 export interface ICompareState {
   /** The current state of the compare form, based on user input */
   readonly formState: IDisplayHistory | ICompareBranch
+
+  /** Whether the branch list should be expanded or hidden */
+  readonly showBranchList: boolean
+
+  /** The text entered  */
+  readonly filterText: string
 
   /** The SHAs of commits to render in the compare list */
   readonly commitSHAs: ReadonlyArray<string>
