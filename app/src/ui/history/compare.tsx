@@ -122,12 +122,6 @@ export class CompareSidebar extends React.Component<
     this.textbox = null
   }
 
-  public componentDidMount() {
-    if (this.textbox !== null && this.props.compareState.showBranchList) {
-      this.textbox.focus()
-    }
-  }
-
   public render() {
     const { allBranches, filterText } = this.props.compareState
     const placeholderText = getPlaceholderText(this.props.compareState)
