@@ -18,6 +18,7 @@ import {
   FoldoutType,
   ImageDiffType,
   CompareAction,
+  ICompareFormUpdate,
 } from '../app-state'
 import { AppStore } from '../stores/app-store'
 import { CloningRepository } from '../../models/cloning-repository'
@@ -1185,11 +1186,11 @@ export class Dispatcher {
   }
 
   /** Update the compare form state for the current repository */
-  public updateCompareForm(
+  public updateCompareForm<K extends keyof ICompareFormUpdate>(
     repository: Repository,
-    formState: { filterText?: string; showBranchList?: boolean }
+    newState: Pick<ICompareFormUpdate, K>
   ) {
-    return this.appStore._updateCompareForm(repository, formState)
+    return this.appStore._updateCompareForm(repository, newState)
   }
 
   /**

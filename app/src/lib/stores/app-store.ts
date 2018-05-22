@@ -23,6 +23,7 @@ import {
   CompareActionKind,
   IDisplayHistory,
   ICompareBranch,
+  ICompareFormUpdate,
 } from '../app-state'
 import { Account } from '../../models/account'
 import { Repository } from '../../models/repository'
@@ -863,24 +864,12 @@ export class AppStore extends TypedBaseStore<IAppState> {
   }
 
   /** This shouldn't be called directly. See `Dispatcher`. */
-  public _updateCompareForm(
+  public _updateCompareForm<K extends keyof ICompareFormUpdate>(
     repository: Repository,
-    newState: { filterText?: string; showBranchList?: boolean }
+    newState: Pick<ICompareFormUpdate, K>
   ) {
     this.updateCompareState(repository, state => {
-      const filterText =
-        newState.filterText !== undefined
-          ? newState.filterText
-          : state.filterText
-      const showBranchList =
-        newState.showBranchList !== undefined
-          ? newState.showBranchList
-          : state.showBranchList
-
-      return {
-        filterText,
-        showBranchList,
-      }
+      return merge(state, newState)
     })
 
     this.emitUpdate()

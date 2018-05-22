@@ -661,6 +661,11 @@ export interface ICompareState {
   readonly aheadBehindCache: ComparisonCache
 }
 
+export interface ICompareFormUpdate {
+  readonly filterText: string
+  readonly showBranchList: boolean
+}
+
 export enum CompareActionKind {
   History = 'History',
   Branch = 'Branch',
