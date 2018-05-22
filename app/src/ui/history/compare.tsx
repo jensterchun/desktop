@@ -97,15 +97,7 @@ export class CompareSidebar extends React.Component<
   }
 
   public componentDidUpdate() {
-    if (this.textbox == null) {
-      return
-    }
-
-    if (this.props.compareState.showBranchList) {
-      this.textbox.focus()
-    } else {
-      this.textbox.blur()
-    }
+    this.updateTextBoxFocus()
   }
 
   public componentWillMount() {
@@ -117,9 +109,7 @@ export class CompareSidebar extends React.Component<
   }
 
   public componentDidMount() {
-    if (this.textbox !== null && this.props.compareState.showBranchList) {
-      this.textbox.focus()
-    }
+    this.updateTextBoxFocus()
   }
 
   public render() {
@@ -396,6 +386,18 @@ export class CompareSidebar extends React.Component<
       if (this.branchList !== null) {
         this.branchList.selectFirstItem(true)
       }
+    }
+  }
+
+  private updateTextBoxFocus = () => {
+    if (this.textbox == null) {
+      return
+    }
+
+    if (this.props.compareState.showBranchList) {
+      this.textbox.focus()
+    } else {
+      this.textbox.blur()
     }
   }
 
