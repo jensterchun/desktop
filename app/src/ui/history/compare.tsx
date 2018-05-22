@@ -235,15 +235,21 @@ export class CompareSidebar extends React.Component<
   }
 
   private renderFilterList() {
-    const compareState = this.props.compareState
+    const {
+      defaultBranch,
+      allBranches,
+      recentBranches,
+      filterText,
+    } = this.props.compareState
+
     return (
       <BranchList
         ref={this.onBranchesListRef}
-        defaultBranch={compareState.defaultBranch}
+        defaultBranch={defaultBranch}
         currentBranch={this.props.currentBranch}
-        allBranches={compareState.allBranches}
-        recentBranches={compareState.recentBranches}
-        filterText={this.props.compareState.filterText}
+        allBranches={allBranches}
+        recentBranches={recentBranches}
+        filterText={filterText}
         textbox={this.textbox!}
         selectedBranch={this.state.focusedBranch}
         canCreateNewBranch={false}
