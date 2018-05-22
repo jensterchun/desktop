@@ -70,6 +70,24 @@ export class CompareSidebar extends React.Component<
     const newFormState = nextProps.compareState.formState
     const oldFormState = this.props.compareState.formState
 
+    if (this.textbox !== null) {
+      if (
+        !this.props.compareState.showBranchList &&
+        nextProps.compareState.showBranchList
+      ) {
+        // showBranchList changes from false -> true
+        //  -> ensure the textbox has focus
+        this.textbox.focus()
+      } else if (
+        this.props.compareState.showBranchList &&
+        !nextProps.compareState.showBranchList
+      ) {
+        // showBranchList changes from true -> false
+        //  -> ensure the textbox no longer has focus
+        this.textbox.blur()
+      }
+    }
+
     if (
       newFormState.kind !== oldFormState.kind &&
       newFormState.kind === ComparisonView.None
