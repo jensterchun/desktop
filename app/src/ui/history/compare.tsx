@@ -88,7 +88,7 @@ export class CompareSidebar extends React.Component<
       const newBranch = newFormState.comparisonBranch
 
       if (oldBranch.name !== newBranch.name) {
-        // ensure the filter text is in sync with the comparison branch
+        // ensure the focused branch is in sync with the chosen branch
         this.setState({
           focusedBranch: newBranch,
         })
