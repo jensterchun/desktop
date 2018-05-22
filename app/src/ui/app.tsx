@@ -502,9 +502,14 @@ export class App extends React.Component<IAppProps, IAppState> {
       kind: CompareActionKind.History,
     })
 
-    await this.props.dispatcher.changeRepositorySection(state.repository, {
-      selectedTab: RepositorySectionTab.History,
-      shouldShowBranchesList,
+    await this.props.dispatcher.changeRepositorySection(
+      state.repository,
+      RepositorySection.History
+    )
+
+    await this.props.dispatcher.updateCompareForm(state.repository, {
+      showBranchList,
+      filterText: '',
     })
   }
 
